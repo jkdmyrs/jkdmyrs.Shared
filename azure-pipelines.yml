@@ -1,8 +1,3 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - master
 
@@ -10,10 +5,29 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- task: UseDotNet@2
+  displayName: use dotnet 5.0
+  inputs:
+    packageType: 'sdk'
+    version: '5.0.x'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- task: DotNetCoreCLI@2
+  displayName: dotnet restore
+  inputs:
+    command: 'restore'
+    projects: '**/jkdmyrs.Extensions.sln'
+    feedsToUse: 'select'
+
+- task: DotNetCoreCLI@2
+  displayName: dotnet build
+  inputs:
+    command: 'build'
+    projects: '**/jkdmyrs.Extensions.sln'
+    arguments: '-c Release --no-restore'
+
+- task: DotNetCoreCLI@2
+  displayName: dotnet test - Unit Tests
+  inputs:
+    command: 'test'
+    projects: '**/jkdmyrs.Extensions.sln'
+    arguments: '-c Release --no-build --filter "TestCategory=Unit"'
