@@ -47,21 +47,26 @@
         [TestMethod]
         public void CanGetKeys()
         {
-            // setup a service provider
+            // create a service provider
             var provider = new ServiceCollection()
+
+                // add azure app configuration using the custom extension method AddAzureAppConfig
                 .AddAzureAppConfig(TestSettings.ConnectionString, new ClientSecretCredential(TestSettings.TenantId, TestSettings.ClientId, TestSettings.ClientSecret))
+
+                // register the settings objects using the custom extension method AddAppConfigSetting
                 .AddAppConfigSetting<ExampleSetting>()
                 .AddAppConfigSetting<ExampleSetting2>()
+
+                // build the provider
                 .BuildServiceProvider();
 
-            // get the settings from the provider
+            // get the settings objects from the provider
             var settings = provider.GetService<ExampleSetting>();
             var settings2 = provider.GetService<ExampleSetting2>();
 
-            // verify 
+            // verify all the keys
             settings.TestConfigKey.Should().Be("TestConfigValue");
             settings.TestSecret.Should().Be("TestConfigSecretValue");
-
             settings2.Version.Should().Be("123");
             settings2.AppName.Should().Be("test");
             settings2.ClientKey.Should().Be("TestConfigValue");
