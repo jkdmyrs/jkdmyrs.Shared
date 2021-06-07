@@ -3,11 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.810.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jkdmyrs.Extensions.Configuration", "jkdmyrs.Extensions.Configuration\jkdmyrs.Extensions.Configuration.csproj", "{40A6792D-DB6F-4228-A668-AD9AF153BE65}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jkdmyrs.Extensions.Configuration", "src\jkdmyrs.Extensions.Configuration\jkdmyrs.Extensions.Configuration.csproj", "{40A6792D-DB6F-4228-A668-AD9AF153BE65}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jkdmyrs.Extensions.Configuration.Tests", "jkdmyrs.Extensions.Configuration.Tests\jkdmyrs.Extensions.Configuration.Tests.csproj", "{11AF4D49-E407-4806-8E00-22F9D738B389}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jkdmyrs.Extensions.Configuration.Tests", "test\jkdmyrs.Extensions.Configuration.Tests\jkdmyrs.Extensions.Configuration.Tests.csproj", "{11AF4D49-E407-4806-8E00-22F9D738B389}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jkdmyrs.Extensions.Tests.Shared", "jkdmyrs.Extensions.Tests.Shared\jkdmyrs.Extensions.Tests.Shared.csproj", "{7A3B4AE9-5F8A-4C7C-A4DA-2C9956BB0B77}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jkdmyrs.Extensions.Testing", "src\jkdmyrs.Extensions.Testing\jkdmyrs.Extensions.Testing.csproj", "{7A3B4AE9-5F8A-4C7C-A4DA-2C9956BB0B77}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8699D7C7-7B17-4FF0-BA66-41B11E363390}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{C65E5D51-BB73-4039-A88B-F81B44641D19}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,5 +39,8 @@ Global
 		SolutionGuid = {1558FA70-723B-4A6E-80AB-8F19270851A5}
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{40A6792D-DB6F-4228-A668-AD9AF153BE65} = {8699D7C7-7B17-4FF0-BA66-41B11E363390}
+		{7A3B4AE9-5F8A-4C7C-A4DA-2C9956BB0B77} = {8699D7C7-7B17-4FF0-BA66-41B11E363390}
+		{11AF4D49-E407-4806-8E00-22F9D738B389} = {C65E5D51-BB73-4039-A88B-F81B44641D19}
 	EndGlobalSection
 EndGlobal

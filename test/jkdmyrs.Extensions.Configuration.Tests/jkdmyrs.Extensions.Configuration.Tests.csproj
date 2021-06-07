@@ -15,8 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\jkdmyrs.Extensions.Tests.Shared\jkdmyrs.Extensions.Tests.Shared.csproj" />
-    <ProjectReference Include="..\jkdmyrs.Extensions.Configuration\jkdmyrs.Extensions.Configuration.csproj" />
+    <ProjectReference Include="..\..\src\jkdmyrs.Extensions.Testing\jkdmyrs.Extensions.Testing.csproj" />
+    <ProjectReference Include="..\..\src\jkdmyrs.Extensions.Configuration\jkdmyrs.Extensions.Configuration.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="IntegrationTests\" />
