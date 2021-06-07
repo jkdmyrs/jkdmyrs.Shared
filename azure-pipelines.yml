@@ -31,3 +31,34 @@ steps:
     command: 'test'
     projects: '**/jkdmyrs.Extensions.sln'
     arguments: '-c Release --no-build --filter "TestCategory=Unit"'
+
+- task: DotNetCoreCLI@2
+  displayName: dotnet publish (jkdmyrs.Extensions.Configuration)
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: '**/jkdmyrs.Extensions.Configuration.csproj'
+    arguments: '-c Release --no-build -o $(Build.ArtifactStagingDirectory)/out/jkdmyrs.Extensions.Configuration/'
+
+- task: DotNetCoreCLI@2
+  displayName: dotnet publish (jkdmyrs.Extensions.Configuration.Tests)
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: '**/jkdmyrs.Extensions.Configuration.Tests.csproj'
+    arguments: '-c Release --no-build -o $(Build.ArtifactStagingDirectory)/out/jkdmyrs.Extensions.Configuration.Tests/'
+
+- task: DotNetCoreCLI@2
+  displayName: dotnet publish (jkdmyrs.Testing.Common)
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: '**/jkdmyrs.Testing.Common.csproj'
+    arguments: '-c Release --no-build -o $(Build.ArtifactStagingDirectory)/out/jkdmyrs.Testing.Common/'
+
+- task: PublishBuildArtifacts@1
+  displayName: publish drop
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/out'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
