@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jkdmyrs.Extensions.Configur
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jkdmyrs.Extensions.Configuration.Tests", "test\jkdmyrs.Extensions.Configuration.Tests\jkdmyrs.Extensions.Configuration.Tests.csproj", "{11AF4D49-E407-4806-8E00-22F9D738B389}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jkdmyrs.Extensions.Testing", "src\jkdmyrs.Extensions.Testing\jkdmyrs.Extensions.Testing.csproj", "{7A3B4AE9-5F8A-4C7C-A4DA-2C9956BB0B77}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jkdmyrs.Testing.Common", "src\jkdmyrs.Testing.Common\jkdmyrs.Testing.Common.csproj", "{7A3B4AE9-5F8A-4C7C-A4DA-2C9956BB0B77}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8699D7C7-7B17-4FF0-BA66-41B11E363390}"
 EndProject

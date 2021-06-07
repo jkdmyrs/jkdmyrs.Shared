@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\jkdmyrs.Extensions.Testing\jkdmyrs.Extensions.Testing.csproj" />
+    <ProjectReference Include="..\..\src\jkdmyrs.Testing.Common\jkdmyrs.Testing.Common.csproj" />
     <ProjectReference Include="..\..\src\jkdmyrs.Extensions.Configuration\jkdmyrs.Extensions.Configuration.csproj" />
   </ItemGroup>
   <ItemGroup>

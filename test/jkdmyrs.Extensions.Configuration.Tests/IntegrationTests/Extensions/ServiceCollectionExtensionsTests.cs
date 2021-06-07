@@ -4,7 +4,7 @@
     using FluentAssertions;
     using jkdmyrs.Extensions.Configuration.Attributes;
     using jkdmyrs.Extensions.Configuration.Extensions;
-    using jkdmyrs.Extensions.Testing;
+    using jkdmyrs.Testing.Common;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 

@@ -1,4 +1,4 @@
-﻿namespace jkdmyrs.Extensions.Testing
+﻿namespace jkdmyrs.Testing.Common
 {
     public static class TestCategories
     {
