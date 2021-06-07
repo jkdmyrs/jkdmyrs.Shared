@@ -14,9 +14,11 @@
     {
         private class ExampleSetting
         {
+            // full key name: TestConfigKey
             public string TestConfigKey { get; set; }
 
             [AzureAppConfigKey("TestSettings:ExampleKey")]
+            // full key name: TestSettings:ExampleKey
             public string TestSecret { get; set; }
         }
 
