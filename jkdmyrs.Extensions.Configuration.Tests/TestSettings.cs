@@ -1,32 +1,16 @@
-﻿using System;
-
-namespace jkdmyrs.Extensions.Configuration.Tests
+﻿namespace jkdmyrs.Extensions.Configuration.Tests
 {
+    using System.Reflection;
+    using Microsoft.Extensions.Configuration;
+
     public static class TestSettings
     {
-        public static string ConnectionString = GetEnvVar("jkdmyrsconfigconnection");
-        public static string TenantId = GetEnvVar("jkdmyrsconfigtenant");
-        public static string ClientId = GetEnvVar("jkdmyrsconfigid");
-        public static string ClientSecret = GetEnvVar("jkdmyrsconfigsecret");
-
-        private static string GetEnvVar(string envVarName)
-        {
-            // try to get the env var from the process first
-            string envVar = Environment.GetEnvironmentVariable(envVarName, EnvironmentVariableTarget.Process);
-
-            // if it is not found in the process target, check the user target
-            if (string.IsNullOrWhiteSpace(envVar))
-            {
-                envVar = Environment.GetEnvironmentVariable(envVarName, EnvironmentVariableTarget.User);
-            }
-
-            // if we haven't found it by now, return empty string
-            if (string.IsNullOrWhiteSpace(envVar))
-            {
-                return string.Empty;
-            }
-
-            return envVar;
-        }
+        private static IConfiguration _config = new ConfigurationBuilder()
+            .AddUserSecrets(Assembly.GetExecutingAssembly())
+            .Build();
+        public static string ConnectionString = _config["jkdmyrsconfigconnection"];
+        public static string TenantId = _config["jkdmyrsconfigtenant"];
+        public static string ClientId = _config["jkdmyrsconfigid"];
+        public static string ClientSecret = _config["jkdmyrsconfigsecret"];
     }
 }
