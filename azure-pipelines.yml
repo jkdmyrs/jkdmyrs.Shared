@@ -1,0 +1,33 @@
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: UseDotNet@2
+  displayName: use dotnet 5.0
+  inputs:
+    packageType: 'sdk'
+    version: '5.0.x'
+
+- task: DotNetCoreCLI@2
+  displayName: dotnet restore
+  inputs:
+    command: 'restore'
+    projects: '**/jkdmyrs.Extensions.sln'
+    feedsToUse: 'select'
+
+- task: DotNetCoreCLI@2
+  displayName: dotnet build
+  inputs:
+    command: 'build'
+    projects: '**/jkdmyrs.Extensions.sln'
+    arguments: '-c Release --no-restore'
+
+- task: DotNetCoreCLI@2
+  displayName: dotnet test - Unit Tests
+  inputs:
+    command: 'test'
+    projects: '**/jkdmyrs.Extensions.sln'
+    arguments: '-c Release --no-build --filter "TestCategory=Unit"'
