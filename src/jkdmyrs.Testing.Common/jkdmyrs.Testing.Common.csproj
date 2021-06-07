@@ -2,8 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <PackOnBuild>true</PackOnBuild>
-    <PackageVersion>0.0.1-beta</PackageVersion>
+    <PackageId>jkdmyrs.Testing.Common</PackageId>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>0.0.1-beta</Version>
     <Authors>Jack DeMeyers</Authors>
     <Description>Everything you need for testing, all in 1 package.</Description>
   </PropertyGroup>
