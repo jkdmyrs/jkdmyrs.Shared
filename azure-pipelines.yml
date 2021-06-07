@@ -15,21 +15,21 @@ steps:
   displayName: dotnet restore
   inputs:
     command: 'restore'
-    projects: '**/jkdmyrs.Extensions.sln'
+    projects: '**/jkdmyrs.Shared.sln'
     feedsToUse: 'select'
 
 - task: DotNetCoreCLI@2
   displayName: dotnet build
   inputs:
     command: 'build'
-    projects: '**/jkdmyrs.Extensions.sln'
+    projects: '**/jkdmyrs.Shared.sln'
     arguments: '-c Release --no-restore'
 
 - task: DotNetCoreCLI@2
   displayName: dotnet test - Unit Tests
   inputs:
     command: 'test'
-    projects: '**/jkdmyrs.Extensions.sln'
+    projects: '**/jkdmyrs.Shared.sln'
     arguments: '-c Release --no-build --filter "TestCategory=Unit"'
 
 - task: DotNetCoreCLI@2
