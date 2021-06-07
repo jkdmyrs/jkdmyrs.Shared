@@ -33,11 +33,13 @@ steps:
     arguments: '-c Release --no-build --filter "TestCategory=Unit"'
 
 - task: DotNetCoreCLI@2
-  displayName: dotnet pack (jkdmyrs.Extensions.Configuration)
   inputs:
     command: 'pack'
-    projects: '**/jkdmyrs.Extensions.Configuration.csproj'
-    arguments: '-c Release --no-build -o $(Build.ArtifactStagingDirectory)/out/jkdmyrs.Extensions.Configuration/'
+    packagesToPack: '**/jkdmyrs.Extensions.Configuration.csproj'
+    configuration: 'Release'
+    packDirectory: '$(Build.ArtifactStagingDirectory)/out/jkdmyrs.Extensions.Configuration'
+    nobuild: true
+    versioningScheme: 'off'
 
 - task: DotNetCoreCLI@2
   displayName: dotnet publish (jkdmyrs.Extensions.Configuration.Tests)
@@ -51,8 +53,11 @@ steps:
   displayName: dotnet pack (jkdmyrs.Testing.Common)
   inputs:
     command: 'pack'
-    projects: '**/jkdmyrs.Testing.Common.csproj'
-    arguments: '-c Release --no-build -o $(Build.ArtifactStagingDirectory)/out/jkdmyrs.Testing.Common/'
+    packagesToPack: '**/jkdmyrs.Testing.Common.csproj'
+    configuration: 'Release'
+    packDirectory: '$(Build.ArtifactStagingDirectory)/out/jkdmyrs.Testing.Common'
+    nobuild: true
+    versioningScheme: 'off'
 
 - task: PublishBuildArtifacts@1
   displayName: publish drop
