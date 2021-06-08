@@ -67,7 +67,7 @@ stages:
       inputs:
         command: 'publish'
         publishWebProjects: false
-        projects: '**/test/jkdmyrs.*.Tests.csproj'
+        projects: '**/test/**/jkdmyrs.*.Tests.csproj'
         arguments: '-c Release --no-build -o $(Build.ArtifactStagingDirectory)/out/tests/'
 
     - task: DotNetCoreCLI@2
