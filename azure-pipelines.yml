@@ -1,67 +1,138 @@
 trigger:
-- master
+  branches:
+    include:
+    - master
+    - release/*
 
 pool:
   vmImage: ubuntu-latest
 
-steps:
-- task: UseDotNet@2
-  displayName: use dotnet 5.0
-  inputs:
-    packageType: 'sdk'
-    version: '5.0.x'
+variables:
+  - name: isMaster
+    value: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
 
-- task: DotNetCoreCLI@2
-  displayName: dotnet restore
-  inputs:
-    command: 'restore'
-    projects: '**/jkdmyrs.Shared.sln'
-    feedsToUse: 'select'
+  - name: isRelease
+    value: $[startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')]
 
-- task: DotNetCoreCLI@2
-  displayName: dotnet build
-  inputs:
-    command: 'build'
-    projects: '**/jkdmyrs.Shared.sln'
-    arguments: '-c Release --no-restore'
+  - name: isMasterOrRelease
+    value: $[or(eq(variables.isMaster, true), eq(variables.isRelease, true))]
 
-- task: DotNetCoreCLI@2
-  displayName: dotnet test - Unit Tests
-  inputs:
-    command: 'test'
-    projects: '**/jkdmyrs.Shared.sln'
-    arguments: '-c Release --no-build --filter "TestCategory=Unit"'
+  - name: disable.coverage.autogenerate
+    value: 'true'
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'pack'
-    packagesToPack: '**/jkdmyrs.Extensions.Configuration.csproj'
-    configuration: 'Release'
-    packDirectory: '$(Build.ArtifactStagingDirectory)/out/jkdmyrs.Extensions.Configuration'
-    nobuild: true
-    versioningScheme: 'off'
+  - name: DOTNET_CLI_TELEMETRY_OPTOUT
+    value: true
 
-- task: DotNetCoreCLI@2
-  displayName: dotnet publish (jkdmyrs.Extensions.Configuration.Tests)
-  inputs:
-    command: 'publish'
-    publishWebProjects: false
-    projects: '**/jkdmyrs.Extensions.Configuration.Tests.csproj'
-    arguments: '-c Release --no-build -o $(Build.ArtifactStagingDirectory)/out/jkdmyrs.Extensions.Configuration.Tests/'
+stages:
+- stage: Build
+  jobs:
+  - job: Build
+    steps:
+    - task: UseDotNet@2
+      displayName: use dotnet 5.0
+      inputs:
+        packageType: 'sdk'
+        version: '5.0.x'
 
-- task: DotNetCoreCLI@2
-  displayName: dotnet pack (jkdmyrs.Testing.Common)
-  inputs:
-    command: 'pack'
-    packagesToPack: '**/jkdmyrs.Testing.Common.csproj'
-    configuration: 'Release'
-    packDirectory: '$(Build.ArtifactStagingDirectory)/out/jkdmyrs.Testing.Common'
-    nobuild: true
-    versioningScheme: 'off'
+    - task: DotNetCoreCLI@2
+      displayName: dotnet restore
+      inputs:
+        command: 'restore'
+        projects: '**/jkdmyrs.Shared.sln'
+        feedsToUse: 'select'
 
-- task: PublishBuildArtifacts@1
-  displayName: publish drop
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)/out'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
+    - task: DotNetCoreCLI@2
+      displayName: dotnet build
+      inputs:
+        command: 'build'
+        projects: '**/jkdmyrs.Shared.sln'
+        arguments: '-c Release --no-restore'
+
+    - task: DotNetCoreCLI@2
+      displayName: dotnet test - Unit Tests
+      inputs:
+        command: 'test'
+        projects: '**/jkdmyrs.Shared.sln'
+        arguments: '-c Release --no-build --filter "TestCategory=Unit"'
+
+    - task: DotNetCoreCLI@2
+      displayName: dotnet test - PipelineIntegration Tests
+      inputs:
+        command: 'test'
+        projects: '**/jkdmyrs.Shared.sln'
+        arguments: '-c Release --no-build --filter "TestCategory=PipelineIntegration"'
+
+    - task: DotNetCoreCLI@2
+      displayName: publish tests
+      inputs:
+        command: 'publish'
+        publishWebProjects: false
+        projects: '**/test/jkdmyrs.*.Tests.csproj'
+        arguments: '-c Release --no-build -o $(Build.ArtifactStagingDirectory)/out/tests/'
+
+    - task: DotNetCoreCLI@2
+      displayName: pack nugets
+      inputs:
+        command: 'pack'
+        packagesToPack: '**/src/jkdmyrs.*.csproj'
+        configuration: 'Release'
+        packDirectory: '$(Build.ArtifactStagingDirectory)/out/nugets'
+        nobuild: true
+        versioningScheme: 'off'
+    
+    - publish: $(Build.ArtifactStagingDirectory)/out
+      artifact: buildDrop
+
+- stage: PrivateBetaFeedRelease
+  dependsOn: Build
+  condition: succeeded()
+  jobs:
+  - job: PrivateBetaFeedRelease
+    steps:
+    - download: current
+      artifact: buildDrop
+
+    - task: NuGetCommand@2
+      displayName: push beta nugets to jkdmyrs-shared-feed
+      inputs:
+        command: 'push'
+        packagesToPush: '$(Pipeline.Workspace)/buildDrop/**/*beta*.nupkg;!$(Pipeline.Workspace)/buildDrop/**/*.symbols.nupkg'
+        nuGetFeedType: 'internal'
+        publishVstsFeed: '816d1d6a-a48c-4912-b2cd-b91c42b08815/2f51411e-9f0f-47cf-b86e-d81bc807c075'
+        allowPackageConflicts: true
+
+- stage: PrivateFeedRelease
+  dependsOn: PrivateBetaFeedRelease
+  condition: and(succeeded(), eq(variables.isMasterOrRelease, true))
+  jobs:
+  - job: PrivateFeedRelease
+    steps:
+    - download: current
+      artifact: buildDrop
+
+    - task: NuGetCommand@2
+      displayName: push nugets to jkdmyrs-shared-feed
+      inputs:
+        command: 'push'
+        packagesToPush: '$(Pipeline.Workspace)/buildDrop/**/*.nupkg;!$(Pipeline.Workspace)/buildDrop/**/*.symbols.nupkg'
+        nuGetFeedType: 'internal'
+        publishVstsFeed: '816d1d6a-a48c-4912-b2cd-b91c42b08815/2f51411e-9f0f-47cf-b86e-d81bc807c075'
+        allowPackageConflicts: true
+
+- stage: NugetFeedRelease
+  dependsOn: PrvateFeedRelease
+  condition: and(succfeeded(), eq(variables.isRelease, true))
+  jobs:
+  - job: NugetFeedRelease
+    steps:
+    - download: current
+      artifact: buildDrop
+
+    - task: NuGetCommand@2
+      displayName: push nugets to nuget feed (except that doesn't exist yet)
+      inputs:
+        command: 'push'
+        packagesToPush: '$(Pipeline.Workspace)/buildDrop/**/*.nupkg;!$(Pipeline.Workspace)/buildDrop/**/*.symbols.nupkg'
+        nuGetFeedType: 'internal'
+        publishVstsFeed: '816d1d6a-a48c-4912-b2cd-b91c42b08815/2f51411e-9f0f-47cf-b86e-d81bc807c075'
+        allowPackageConflicts: true
