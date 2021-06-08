@@ -121,7 +121,7 @@ stages:
 
 - stage: NugetFeedRelease
   dependsOn: PrvateFeedRelease
-  condition: and(succfeeded(), eq(variables.isRelease, true))
+  condition: and(succeeded(), eq(variables.isRelease, true))
   jobs:
   - job: NugetFeedRelease
     steps:
