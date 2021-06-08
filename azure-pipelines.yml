@@ -120,7 +120,7 @@ stages:
         allowPackageConflicts: true
 
 - stage: NugetFeedRelease
-  dependsOn: PrvateFeedRelease
+  dependsOn: PrivateFeedRelease
   condition: and(succeeded(), eq(variables.isRelease, true))
   jobs:
   - job: NugetFeedRelease
