@@ -42,21 +42,21 @@ stages:
         feedsToUse: 'select'
 
     - task: DotNetCoreCLI@2
-      displayName: dotnet build
+      displayName: build
       inputs:
         command: 'build'
         projects: '**/jkdmyrs.Shared.sln'
         arguments: '-c Release --no-restore'
 
     - task: DotNetCoreCLI@2
-      displayName: dotnet test - Unit Tests
+      displayName: test - Unit Tests
       inputs:
         command: 'test'
         projects: '**/jkdmyrs.Shared.sln'
         arguments: '-c Release --no-build --filter "TestCategory=Unit"'
 
     - task: DotNetCoreCLI@2
-      displayName: dotnet test - PipelineIntegration Tests
+      displayName: test - Pipeline Integration Tests
       inputs:
         command: 'test'
         projects: '**/jkdmyrs.Shared.sln'
@@ -74,7 +74,7 @@ stages:
       displayName: pack nugets
       inputs:
         command: 'pack'
-        packagesToPack: '**/src/jkdmyrs.*.csproj'
+        packagesToPack: '**/src/**/jkdmyrs.*.csproj'
         configuration: 'Release'
         packDirectory: '$(Build.ArtifactStagingDirectory)/out/nugets'
         nobuild: true
