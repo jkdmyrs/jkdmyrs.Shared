@@ -8,7 +8,7 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  - group: jkdmyrs-secrets
+  - group: jkdmyrs-keystore
   - name: isMaster
     value: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
 
