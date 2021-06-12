@@ -8,12 +8,11 @@
 
     public static class TestSettings
     {
-        private const string CONNECTION_STRING_SELECTOR = "jkdmyrsconfigconnection";
         private static IConfiguration _config = new ConfigurationBuilder()
             .AddUserSecrets(Assembly.GetExecutingAssembly())
             .Build();
 
-        private static string ConnectionString = _config[CONNECTION_STRING_SELECTOR];
+        private static string ConnectionString = _config["jkdmyrsconfigconnection"];
         private static string TenantId = _config["jkdmyrsconfigtenant"];
         private static string ClientId = _config["jkdmyrsconfigid"];
         private static string ClientSecret = _config["jkdmyrsconfigsecret"];
@@ -37,17 +36,18 @@
         {
             get
             {
+                string envVarName = "APP_CONFIG_CONNECTION";
                 if (!string.IsNullOrWhiteSpace(ConnectionString))
                 {
                     return ConnectionString;
                 }
                 // try to get the connection string from the process first
-                string connectionString = Environment.GetEnvironmentVariable(CONNECTION_STRING_SELECTOR, EnvironmentVariableTarget.Process);
+                string connectionString = Environment.GetEnvironmentVariable(envVarName, EnvironmentVariableTarget.Process);
 
                 // if it is not found in the process target, check the user target
                 if (string.IsNullOrWhiteSpace(connectionString))
                 {
-                    connectionString = Environment.GetEnvironmentVariable(CONNECTION_STRING_SELECTOR, EnvironmentVariableTarget.User);
+                    connectionString = Environment.GetEnvironmentVariable(envVarName, EnvironmentVariableTarget.User);
                 }
 
                 // if we haven't found it by now, return empty string
