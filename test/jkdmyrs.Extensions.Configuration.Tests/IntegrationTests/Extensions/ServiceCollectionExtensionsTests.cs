@@ -9,7 +9,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
-    [TestCategory(TestCategories.Integration)]
+    [TestCategory(TestCategories.PipelineIntegration)]
     public class ServiceCollectionExtensionsTests
     {
         private class ExampleSetting
