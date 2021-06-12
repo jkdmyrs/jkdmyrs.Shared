@@ -8,6 +8,7 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
+  - group: jkdmyrs-secrets
   - name: isMaster
     value: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
 
@@ -54,6 +55,15 @@ stages:
         command: 'test'
         projects: '**/jkdmyrs.Shared.sln'
         arguments: '-c Release --no-build --filter "TestCategory=Unit"'
+
+    - task: PowerShell@2
+      inputs:
+        targetType: 'inline'
+        script: |
+          Write-Host "##vso[task.setvariable variable=jkdmyrsconfigid;]$(AzureAppConfigClientId)"
+          Write-Host "##vso[task.setvariable variable=jkdmyrsconfigsecret;]$(AzureAppConfigClientSecret)"
+          Write-Host "##vso[task.setvariable variable=jkdmyrsconfigtenant;]$(AzureAppConfigTenantId)"
+          Write-Host "##vso[task.setvariable variable=jkdmyrsconfigconnection;]$(AzureAppConfigConnectionString)"
 
     - task: DotNetCoreCLI@2
       displayName: test - Pipeline Integration Tests
