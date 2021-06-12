@@ -22,9 +22,13 @@
     <None Remove="IntegrationTests\" />
     <None Remove="IntegrationTests\Extensions\" />
     <None Remove="Microsoft.Extensions.Configuration.UserSecrets" />
+    <None Remove="UnitTests\" />
+    <None Remove="UnitTests\Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="IntegrationTests\" />
     <Folder Include="IntegrationTests\Extensions\" />
+    <Folder Include="UnitTests\" />
+    <Folder Include="UnitTests\Extensions\" />
   </ItemGroup>
 </Project>

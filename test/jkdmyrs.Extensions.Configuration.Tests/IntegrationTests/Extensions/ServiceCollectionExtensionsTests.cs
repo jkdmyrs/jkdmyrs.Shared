@@ -54,7 +54,7 @@
                 .AddAzureAppConfig(TestSettings.ConnectionString, new ClientSecretCredential(TestSettings.TenantId, TestSettings.ClientId, TestSettings.ClientSecret))
 
                 // register the settings objects using the custom extension method AddAppConfigSetting
-                .AddAppConfigSetting<ExampleSetting>()
+                .AddAppConfigSetting<ExampleSetting>(defaultPrefixToClassName: false)
                 .AddAppConfigSetting<ExampleSetting2>()
 
                 // build the provider
