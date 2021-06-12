@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <PackageId>jkdmyrs.Extensions.Configuraiton</PackageId>
-    <Version>0.1.0-beta</Version>
+    <Version>0.1.0</Version>
     <Authors>Jack DeMeyers</Authors>
     <Description>Extensions for the Microsoft Azure App Configuration library.</Description>
   </PropertyGroup>

@@ -9,7 +9,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
-    [TestCategory(TestCategories.Integration)]
+    [TestCategory(TestCategories.PipelineIntegration)]
     public class ServiceCollectionExtensionsTests
     {
         private class ExampleSetting
@@ -51,7 +51,7 @@
             var provider = new ServiceCollection()
 
                 // add azure app configuration using the custom extension method AddAzureAppConfig
-                .AddAzureAppConfig(TestSettings.ConnectionString, new ClientSecretCredential(TestSettings.TenantId, TestSettings.ClientId, TestSettings.ClientSecret))
+                .AddAzureAppConfig(TestSettings.AzureAppConfigConnectionString, TestSettings.KeyVaultCredential)
 
                 // register the settings objects using the custom extension method AddAppConfigSetting
                 .AddAppConfigSetting<ExampleSetting>(defaultPrefixToClassName: false)
