@@ -6,6 +6,9 @@
     using Azure.Identity;
     using Microsoft.Extensions.Configuration;
 
+    /// <summary>
+    /// uses dotnet user-secrets locally, environment variables in pipeline
+    /// </summary>
     public static class TestSettings
     {
         private static IConfiguration _config = new ConfigurationBuilder()
