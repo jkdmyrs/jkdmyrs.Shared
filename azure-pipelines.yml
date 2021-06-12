@@ -9,6 +9,7 @@ pool:
 
 variables:
   - group: jkdmyrs-keystore
+
   - name: isMaster
     value: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
 
