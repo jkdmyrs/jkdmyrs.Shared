@@ -58,6 +58,7 @@ stages:
         arguments: '-c Release --no-build --filter "TestCategory=Unit"'
 
     - task: PowerShell@2
+      displayName: set env vars for Azure App Config
       inputs:
         targetType: 'inline'
         script: |
