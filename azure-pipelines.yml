@@ -60,9 +60,9 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
-          Write-Host "##vso[task.setvariable variable=jkdmyrsconfigid;]$(AzureAppConfigClientId)"
-          Write-Host "##vso[task.setvariable variable=jkdmyrsconfigsecret;]$(AzureAppConfigClientSecret)"
-          Write-Host "##vso[task.setvariable variable=jkdmyrsconfigtenant;]$(AzureAppConfigTenantId)"
+          Write-Host "##vso[task.setvariable variable=AZURE_CLIENT_ID;]$(AzureAppConfigClientId)"
+          Write-Host "##vso[task.setvariable variable=AZURE_CLIENT_SECRET;]$(AzureAppConfigClientSecret)"
+          Write-Host "##vso[task.setvariable variable=AZURE_TENANT_ID;]$(AzureAppConfigTenantId)"
           Write-Host "##vso[task.setvariable variable=jkdmyrsconfigconnection;]$(AzureAppConfigConnectionString)"
 
     - task: DotNetCoreCLI@2
