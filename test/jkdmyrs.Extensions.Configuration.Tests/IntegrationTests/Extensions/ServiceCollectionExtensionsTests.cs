@@ -11,6 +11,8 @@
     [TestCategory(TestCategories.PipelineIntegration)]
     public class ServiceCollectionExtensionsTests
     {
+        // these are real settings used in the jkdmyrs-cloud project
+        // they might eventually change/be removed and cause this test to fail
         [AzureAppConfigKeyPrefix("NFL:Redirects:TableStorage")]
         private class ExampleSetting
         {
