@@ -19,9 +19,12 @@
         public static IServiceCollection AddAzureAppConfig(this IServiceCollection services, string connectionString, TokenCredential keyvaultCredentials = null, Action<AzureAppConfigurationOptions> configureOptions = null)
         {
             services.AddAzureAppConfiguration();
-            services.AddSingleton<IAzureAppConfig>(new ConfigurationBuilder()
+            services.AddSingleton<IAzureAppConfig>(sp => {
+              var config = new ConfigurationBuilder()
                 .AddAzureAppConfig(connectionString, keyvaultCredentials, configureOptions)
-                .BuildAzureAppConfig());
+                .Build();
+              return new AzureAppConfig(config);
+            });
             return services;
         }
 

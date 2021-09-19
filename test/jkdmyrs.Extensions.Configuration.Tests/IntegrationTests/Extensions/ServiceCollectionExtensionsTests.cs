@@ -1,6 +1,5 @@
 ﻿namespace jkdmyrs.Extensions.Configuration.Tests.IntegrationTests.Extensions
 {
-    using Azure.Identity;
     using FluentAssertions;
     using jkdmyrs.Extensions.Configuration.Attributes;
     using jkdmyrs.Extensions.Configuration.Extensions;
@@ -12,36 +11,17 @@
     [TestCategory(TestCategories.PipelineIntegration)]
     public class ServiceCollectionExtensionsTests
     {
+        // these are real settings used in the jkdmyrs-cloud project
+        // they might eventually change/be removed and cause this test to fail
+        [AzureAppConfigKeyPrefix("NFL:Redirects:TableStorage")]
         private class ExampleSetting
         {
-            // full key name: TestConfigKey
-            public string TestConfigKey { get; set; }
+            [AzureAppConfigKey("ConnectionString")]
+            // full key name: NFL:Redirects:TableStorage:ConnectionString
+            public string Connection { get; set; }
 
-            [AzureAppConfigKey("TestSettings:ExampleKey")]
-            // full key name: TestSettings:ExampleKey
-            public string TestSecret { get; set; }
-        }
-
-        [AzureAppConfigKeyPrefix("OrderCapture")]
-        private class ExampleSetting2
-        {
-            [AzureAppConfigKey("TestSetting2")]
-            // full key name: OrderCapture:TestSetting2
-            public string Version { get; set; }
-
-            [AzureAppConfigKey("TestSetting")]
-            // full key name: OrderCapture:TestSetting
-            public string AppName { get; set; }
-
-            [AzureAppConfigSkipPrefix]
-            [AzureAppConfigKey("TestConfigKey")]
-            // full key name: TestConfigKey
-            public string ClientKey { get; set; }
-
-            [AzureAppConfigKeyPrefix("Auth")]
-            [AzureAppConfigKey("TestSetting3")]
-            // full key name: OrderCapture:Auth:TestSetting3
-            public string AuthKey { get; set; }
+            // full key name: NFL:Redirects:TableStorage:TableName
+            public string TableName { get; set; }
         }
 
         [TestMethod]
@@ -55,22 +35,16 @@
 
                 // register the settings objects using the custom extension method AddAppConfigSetting
                 .AddAppConfigSetting<ExampleSetting>(defaultPrefixToClassName: false)
-                .AddAppConfigSetting<ExampleSetting2>()
 
                 // build the provider
                 .BuildServiceProvider();
 
             // get the settings objects from the provider
             var settings = provider.GetService<ExampleSetting>();
-            var settings2 = provider.GetService<ExampleSetting2>();
 
             // verify all the keys
-            settings.TestConfigKey.Should().Be("TestConfigValue");
-            settings.TestSecret.Should().Be("TestConfigSecretValue");
-            settings2.Version.Should().Be("123");
-            settings2.AppName.Should().Be("test");
-            settings2.ClientKey.Should().Be("TestConfigValue");
-            settings2.AuthKey.Should().Be("Test123");
+            settings.Connection.Should().NotBeNull();
+            settings.TableName.Should().Be("gamedirectory");
         }
     }
 }
