@@ -34,10 +34,5 @@
             });
             return builder;
         }
-
-        public static IAzureAppConfig BuildAzureAppConfig(this IConfigurationBuilder builder)
-        {
-            return new AzureAppConfig(builder.Build());
-        }
     }
 }
