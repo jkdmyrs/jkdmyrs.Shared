@@ -3,15 +3,22 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.810.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jkdmyrs.Extensions.Configuration", "src\jkdmyrs.Extensions.Configuration\jkdmyrs.Extensions.Configuration.csproj", "{40A6792D-DB6F-4228-A668-AD9AF153BE65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "jkdmyrs.Extensions.Configuration", "src\jkdmyrs.Extensions.Configuration\jkdmyrs.Extensions.Configuration.csproj", "{40A6792D-DB6F-4228-A668-AD9AF153BE65}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jkdmyrs.Extensions.Configuration.Tests", "test\jkdmyrs.Extensions.Configuration.Tests\jkdmyrs.Extensions.Configuration.Tests.csproj", "{11AF4D49-E407-4806-8E00-22F9D738B389}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "jkdmyrs.Extensions.Configuration.Tests", "test\jkdmyrs.Extensions.Configuration.Tests\jkdmyrs.Extensions.Configuration.Tests.csproj", "{11AF4D49-E407-4806-8E00-22F9D738B389}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jkdmyrs.Testing.Common", "src\jkdmyrs.Testing.Common\jkdmyrs.Testing.Common.csproj", "{7A3B4AE9-5F8A-4C7C-A4DA-2C9956BB0B77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "jkdmyrs.Testing.Common", "src\jkdmyrs.Testing.Common\jkdmyrs.Testing.Common.csproj", "{7A3B4AE9-5F8A-4C7C-A4DA-2C9956BB0B77}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8699D7C7-7B17-4FF0-BA66-41B11E363390}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{C65E5D51-BB73-4039-A88B-F81B44641D19}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jkdmyrs.Extensions.Functions", "src\jkdmyrs.Extensions.Functions\jkdmyrs.Extensions.Functions.csproj", "{0D683128-06AA-4169-A02A-2DE07890ABBB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".azure-pipelines", ".azure-pipelines", "{547882FE-09FE-4A5B-8AFE-A3B08CA139E6}"
+	ProjectSection(SolutionItems) = preProject
+		azure-pipelines.yml = azure-pipelines.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,16 +38,21 @@ Global
 		{7A3B4AE9-5F8A-4C7C-A4DA-2C9956BB0B77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A3B4AE9-5F8A-4C7C-A4DA-2C9956BB0B77}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A3B4AE9-5F8A-4C7C-A4DA-2C9956BB0B77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D683128-06AA-4169-A02A-2DE07890ABBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D683128-06AA-4169-A02A-2DE07890ABBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D683128-06AA-4169-A02A-2DE07890ABBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D683128-06AA-4169-A02A-2DE07890ABBB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {1558FA70-723B-4A6E-80AB-8F19270851A5}
-	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{40A6792D-DB6F-4228-A668-AD9AF153BE65} = {8699D7C7-7B17-4FF0-BA66-41B11E363390}
-		{7A3B4AE9-5F8A-4C7C-A4DA-2C9956BB0B77} = {8699D7C7-7B17-4FF0-BA66-41B11E363390}
 		{11AF4D49-E407-4806-8E00-22F9D738B389} = {C65E5D51-BB73-4039-A88B-F81B44641D19}
+		{7A3B4AE9-5F8A-4C7C-A4DA-2C9956BB0B77} = {8699D7C7-7B17-4FF0-BA66-41B11E363390}
+		{0D683128-06AA-4169-A02A-2DE07890ABBB} = {8699D7C7-7B17-4FF0-BA66-41B11E363390}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1558FA70-723B-4A6E-80AB-8F19270851A5}
 	EndGlobalSection
 EndGlobal
