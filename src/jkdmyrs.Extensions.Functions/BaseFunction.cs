@@ -24,12 +24,12 @@
             }
             catch (FunctionFailedException funcFailed)
             {
-                _logger.LogInformation("Function failed. Status Code: {statusCode}, Message: {message}", funcFailed.StatusCode, funcFailed.Message);
+                _logger.LogError("Function failed. Status Code: {statusCode}, Message: {message}", funcFailed.StatusCode, funcFailed.Message);
                 return funcFailed.ToErrorResponse();
             }
             catch (Exception e)
             {
-                _logger.LogInformation("Function failed with unknown error. Message: {message}", e.Message);
+                _logger.LogError("Function failed with unknown error. Message: {message}", e.Message);
                 return e.ToErrorResponse();
             }
         }
