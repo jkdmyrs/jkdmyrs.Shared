@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>jkdmyrs.Extensions.Functions</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>Jack DeMeyers</Authors>
+    <Description>Extensions for Azure Functions projects.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.19" />
+  </ItemGroup>
+
+</Project>
