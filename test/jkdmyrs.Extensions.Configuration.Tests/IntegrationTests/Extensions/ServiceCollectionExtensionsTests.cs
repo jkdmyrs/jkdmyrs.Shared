@@ -1,6 +1,5 @@
 ﻿namespace jkdmyrs.Extensions.Configuration.Tests.IntegrationTests.Extensions
 {
-    using Azure.Identity;
     using FluentAssertions;
     using jkdmyrs.Extensions.Configuration.Attributes;
     using jkdmyrs.Extensions.Configuration.Extensions;
@@ -19,7 +18,6 @@
             // full key name: NFL:Redirects:TableStorage:ConnectionString
             public string Connection { get; set; }
 
-            [AzureAppConfigKey("ConnectionString")]
             // full key name: NFL:Redirects:TableStorage:TableName
             public string TableName { get; set; }
         }
